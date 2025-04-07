@@ -11,11 +11,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-// import { signInWithEmailAndPassword } from "@/actions";
+import { signInWithEmailAndPassword } from "@/actions";
 import { useTransition } from "react";
 
 const FormSchema = z.object({
@@ -37,35 +38,37 @@ export default function SignInForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log('data',data)
-    // startTransition(async () => {
-    //   const result = await signInWithEmailAndPassword(data);
-    //   const { error } = result;
+  console.log('data', data);
+  startTransition(async () => {
+    try {
+      const result = await signInWithEmailAndPassword(data);
+      const { error } = result;
 
-    //   if (error?.message) {
-    //     console.log(error.message);
-    //     toast({
-    //       variant: "destructive",
-    //       title: "You submitted the following values:",
-    //       description: (
-    //         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //           <code className="text-white">{error.message}</code>
-    //         </pre>
-    //       ),
-    //     });
-    //   } else {
-    //     console.log("succes");
-    //     toast({
-    //       title: "You submitted the following values:",
-    //       description: (
-    //         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //           <code className="text-white">Successfully Login</code>
-    //         </pre>
-    //       ),
-    //     });
-    //   }
-    // });
-  }
+      if (error?.message) {
+        console.log(error.message);
+        toast(
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{error.message}</code>
+          </pre>
+        );
+      } else {
+        console.log("success");
+        toast(
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">Successfully Login</code>
+          </pre>
+        );
+      }
+    } catch (err) {
+      console.error('Error during sign-in:', err);
+      toast(
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">An unexpected error occurred.</code>
+        </pre>
+      );
+    }
+  });
+}
 
   return (
     <Form {...form}>
