@@ -13,9 +13,9 @@ export default async function Home() {
       <div className="absolute w-full h-full text-white flex flex-col justify-between">
         <div className="flex flex-col">
           <Navbar />
-          {/* <Header /> */}
+          <Header />
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </div>
       {/* <SplineComponent/> */}
     </div>

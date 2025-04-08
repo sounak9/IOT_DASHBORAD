@@ -4,10 +4,10 @@ import useGetUserSB from "@/components/hooks/useGetUserSB";
 
 export const ProfileForm = () => {
   const res = useGetUserSB();
-  const email = res.userInfo?.session.user.email;
-  const avatarUrl = res.userInfo?.session.user.user_metadata.avatar_url;
-  const userName = res.userInfo?.session.user.user_metadata.user_name;
-  const userFullName = res.userInfo?.session.user.user_metadata.full_name;
+  const email = res.userInfo?.session?.user?.email || "Not Available";
+  const avatarUrl = res.userInfo?.session?.user?.user_metadata?.avatar_url || "";
+  const userName = res.userInfo?.session?.user?.user_metadata?.user_name || "Not Available";
+  const userFullName = res.userInfo?.session?.user?.user_metadata?.full_name || "Not Available";
 
   return (
     <div>
@@ -20,7 +20,7 @@ export const ProfileForm = () => {
           <h3 className="font-bold">Email:</h3>
           <p className="text-sm">{email}</p>
           <h3 className="font-bold">Full Name:</h3>
-          <p className="text-sm">{userFullName ? userFullName : 'NA'}</p>
+          <p className="text-sm">{userFullName}</p>
         </div>
       </div>
     </div>
