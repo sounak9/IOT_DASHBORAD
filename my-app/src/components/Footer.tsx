@@ -164,7 +164,7 @@ export function Footer() {
           </SwiperSlide>
           <SwiperSlide>
             <Card
-              title="Humidity IN"
+              title="current"
               icon={<Icons.droplet />}
               value={humIn}
               unit={"%"}
